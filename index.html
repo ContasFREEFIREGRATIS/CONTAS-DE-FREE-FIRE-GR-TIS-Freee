@@ -6,81 +6,89 @@
   <title>CONTAS GRÁTIS</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    body {
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      font-family: Arial, sans-serif;
-      background: black;
-      color: white;
+    body{
+      overflow:hidden;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      font-family:Arial, sans-serif;
+      background:black;
+      color:white;
     }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
+    canvas{
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:-1;
+      display:none;
     }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 30px;
-      text-shadow: 0 0 15px #00ff00;
-      animation: piscar 1s infinite alternate;
+    h1{
+      font-size:3rem;
+      margin-bottom:30px;
+      text-shadow:0 0 20px #00ff00;
+      animation:piscar 1s infinite alternate;
+      text-align:center;
     }
 
-    @keyframes piscar {
-      from {
-        opacity: 0.7;
-      }
-      to {
-        opacity: 1;
-      }
+    @keyframes piscar{
+      from{opacity:0.7;}
+      to{opacity:1;}
     }
 
-    button {
-      padding: 15px 35px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      background: #00aa00;
-      color: white;
-      transition: 0.3s;
-      box-shadow: 0 0 15px #00ff00;
+    button{
+      padding:15px 35px;
+      font-size:1.2rem;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      background:#00aa00;
+      color:white;
+      transition:0.3s;
+      box-shadow:0 0 20px #00ff00;
     }
 
-    button:hover {
-      transform: scale(1.05);
-      background: #00cc00;
+    button:hover{
+      transform:scale(1.05);
+      background:#00cc00;
     }
 
-    .troll {
-      display: none;
-      font-size: 2.2rem;
-      text-align: center;
-      text-shadow: 0 0 10px #00ff00;
-      animation: aparecer 0.5s ease;
+    #troll{
+      display:none;
+      font-size:3rem;
+      color:red;
+      text-shadow:0 0 20px red;
+      animation:tremer 0.1s infinite;
+      text-align:center;
     }
 
-    @keyframes aparecer {
-      from {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
+    @keyframes tremer{
+      0%{transform:translate(2px,2px);}
+      25%{transform:translate(-2px,2px);}
+      50%{transform:translate(2px,-2px);}
+      75%{transform:translate(-2px,-2px);}
+      100%{transform:translate(2px,2px);}
+    }
+
+    #hack{
+      display:none;
+      position:absolute;
+      top:20px;
+      left:20px;
+      color:#00ff00;
+      font-size:14px;
+      font-family:monospace;
+      text-shadow:0 0 5px #00ff00;
+      white-space:pre-line;
     }
   </style>
 </head>
@@ -91,19 +99,71 @@
 
   <h1 id="titulo">⚠️ CONTAS GRÁTIS ⚠️</h1>
 
-  <button id="botao" onclick="trollar()">
+  <button id="botao" onclick="iniciar()">
     ACESSAR
   </button>
 
-  <div class="troll" id="mensagem">
-    Perdeu o acesso de tudo otario 
+  <div id="troll">
+    💀 PERDEU OTÁRIO 💀
   </div>
 
+  <div id="hack"></div>
+
   <script>
-    function trollar() {
+
+    function iniciar(){
+
       document.getElementById("titulo").style.display = "none";
       document.getElementById("botao").style.display = "none";
-      document.getElementById("mensagem").style.display = "block";
+
+      const troll = document.getElementById("troll");
+      troll.style.display = "block";
+
+      setTimeout(() => {
+
+        troll.style.display = "none";
+
+        document.getElementById("matrix").style.display = "block";
+        document.getElementById("hack").style.display = "block";
+
+        iniciarHack();
+
+      },10000);
+    }
+
+    function iniciarHack(){
+
+      const hack = document.getElementById("hack");
+
+      const mensagens = [
+        "Conectando ao servidor...",
+        "Bypass firewall...",
+        "Acessando sistema...",
+        "IP localizado...",
+        "Transferindo dados...",
+        "Root access granted...",
+        "Decrypting passwords...",
+        "Injecting scripts...",
+        "Downloading database...",
+        "Hack concluído..."
+      ];
+
+      let i = 0;
+
+      setInterval(() => {
+
+        if(i < mensagens.length){
+
+          hack.innerHTML += mensagens[i] + "\\n";
+          i++;
+
+        }else{
+
+          hack.innerHTML += "ERRO 0x93A...\\n";
+
+        }
+
+      },800);
     }
 
     const canvas = document.getElementById("matrix");
@@ -122,18 +182,20 @@
 
     const gotas = [];
 
-    for (let x = 0; x < colunas; x++) {
+    for(let x = 0; x < colunas; x++){
       gotas[x] = 1;
     }
 
-    function desenhar() {
+    function desenhar(){
+
       ctx.fillStyle = "rgba(0,0,0,0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0,0,canvas.width,canvas.height);
 
       ctx.fillStyle = "#00ff00";
       ctx.font = tamanhoFonte + "px monospace";
 
-      for (let i = 0; i < gotas.length; i++) {
+      for(let i = 0; i < gotas.length; i++){
+
         const texto =
           arrayLetras[
             Math.floor(Math.random() * arrayLetras.length)
@@ -145,10 +207,10 @@
           gotas[i] * tamanhoFonte
         );
 
-        if (
+        if(
           gotas[i] * tamanhoFonte > canvas.height &&
           Math.random() > 0.975
-        ) {
+        ){
           gotas[i] = 0;
         }
 
@@ -156,13 +218,20 @@
       }
     }
 
-    setInterval(desenhar, 33);
+    setInterval(desenhar,33);
 
     window.addEventListener("resize", () => {
+
       canvas.height = window.innerHeight;
       canvas.width = window.innerWidth;
+
     });
+
   </script>
 
 </body>
 </html>
+
+
+
+
