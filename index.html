@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cartão clonado</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTAS GRÁTIS</title>
+
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #111, #222);
+      background: black;
       color: white;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
 
     h1 {
       font-size: 3rem;
       margin-bottom: 30px;
+      text-shadow: 0 0 15px #00ff00;
+      animation: piscar 1s infinite alternate;
+    }
+
+    @keyframes piscar {
+      from {
+        opacity: 0.7;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
     button {
@@ -28,32 +53,116 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      background: #ff3333;
+      background: #00aa00;
       color: white;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #00cc00;
     }
 
     .troll {
       display: none;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       text-align: center;
+      text-shadow: 0 0 10px #00ff00;
+      animation: aparecer 0.5s ease;
+    }
+
+    @keyframes aparecer {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   </style>
 </head>
+
 <body>
+
+  <canvas id="matrix"></canvas>
+
   <h1 id="titulo">⚠️ CONTAS GRÁTIS ⚠️</h1>
 
-  <button id="botao" onclick="trollar()">Clique aqui</button>
+  <button id="botao" onclick="trollar()">
+    ACESSAR
+  </button>
 
   <div class="troll" id="mensagem">
-    😂 Cartão e contas roubadas kkkkk 😂
+    Perdeu o acesso de tudo otario 
   </div>
 
   <script>
     function trollar() {
-      document.getElementById('titulo').style.display = 'none';
-      document.getElementById('botao').style.display = 'none';
-      document.getElementById('mensagem').style.display = 'block';
+      document.getElementById("titulo").style.display = "none";
+      document.getElementById("botao").style.display = "none";
+      document.getElementById("mensagem").style.display = "block";
     }
+
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letras =
+      "01ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソ";
+
+    const arrayLetras = letras.split("");
+
+    const tamanhoFonte = 14;
+    const colunas = canvas.width / tamanhoFonte;
+
+    const gotas = [];
+
+    for (let x = 0; x < colunas; x++) {
+      gotas[x] = 1;
+    }
+
+    function desenhar() {
+      ctx.fillStyle = "rgba(0,0,0,0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00ff00";
+      ctx.font = tamanhoFonte + "px monospace";
+
+      for (let i = 0; i < gotas.length; i++) {
+        const texto =
+          arrayLetras[
+            Math.floor(Math.random() * arrayLetras.length)
+          ];
+
+        ctx.fillText(
+          texto,
+          i * tamanhoFonte,
+          gotas[i] * tamanhoFonte
+        );
+
+        if (
+          gotas[i] * tamanhoFonte > canvas.height &&
+          Math.random() > 0.975
+        ) {
+          gotas[i] = 0;
+        }
+
+        gotas[i]++;
+      }
+    }
+
+    setInterval(desenhar, 33);
+
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
   </script>
+
 </body>
 </html>
