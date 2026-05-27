@@ -1,237 +1,92 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CONTAS GRÁTIS</title>
+<div id="hack"></div>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+<script>
+function iniciarHack(){
 
-    body{
-      overflow:hidden;
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      font-family:Arial, sans-serif;
-      background:black;
-      color:white;
-    }
+  const hack = document.getElementById("hack");
 
-    canvas{
-      position:fixed;
-      top:0;
-      left:0;
-      z-index:-1;
-      display:none;
-    }
+  const navegador = navigator.userAgent;
+  const idioma = navigator.language;
+  const plataforma = navigator.platform;
+  const largura = screen.width;
+  const altura = screen.height;
 
-    h1{
-      font-size:3rem;
-      margin-bottom:30px;
-      text-shadow:0 0 20px #00ff00;
-      animation:piscar 1s infinite alternate;
-      text-align:center;
-    }
+  let bateria = "Desconhecida";
 
-    @keyframes piscar{
-      from{opacity:0.7;}
-      to{opacity:1;}
-    }
-
-    button{
-      padding:15px 35px;
-      font-size:1.2rem;
-      border:none;
-      border-radius:12px;
-      cursor:pointer;
-      background:#00aa00;
-      color:white;
-      transition:0.3s;
-      box-shadow:0 0 20px #00ff00;
-    }
-
-    button:hover{
-      transform:scale(1.05);
-      background:#00cc00;
-    }
-
-    #troll{
-      display:none;
-      font-size:3rem;
-      color:red;
-      text-shadow:0 0 20px red;
-      animation:tremer 0.1s infinite;
-      text-align:center;
-    }
-
-    @keyframes tremer{
-      0%{transform:translate(2px,2px);}
-      25%{transform:translate(-2px,2px);}
-      50%{transform:translate(2px,-2px);}
-      75%{transform:translate(-2px,-2px);}
-      100%{transform:translate(2px,2px);}
-    }
-
-    #hack{
-      display:none;
-      position:absolute;
-      top:20px;
-      left:20px;
-      color:#00ff00;
-      font-size:14px;
-      font-family:monospace;
-      text-shadow:0 0 5px #00ff00;
-      white-space:pre-line;
-    }
-  </style>
-</head>
-
-<body>
-
-  <canvas id="matrix"></canvas>
-
-  <h1 id="titulo">⚠️ CONTAS GRÁTIS ⚠️</h1>
-
-  <button id="botao" onclick="iniciar()">
-    ACESSAR
-  </button>
-
-  <div id="troll">
-    💀 PERDEU OTÁRIO 💀
-  </div>
-
-  <div id="hack"></div>
-
-  <script>
-
-    function iniciar(){
-
-      document.getElementById("titulo").style.display = "none";
-      document.getElementById("botao").style.display = "none";
-
-      const troll = document.getElementById("troll");
-      troll.style.display = "block";
-
-      setTimeout(() => {
-
-        troll.style.display = "none";
-
-        document.getElementById("matrix").style.display = "block";
-        document.getElementById("hack").style.display = "block";
-
-        iniciarHack();
-
-      },10000);
-    }
-
-    function iniciarHack(){
-
-      const hack = document.getElementById("hack");
-
-      const mensagens = [
-        "Conectando ao servidor...",
-        "Bypass firewall...",
-        "Acessando sistema...",
-        "IP localizado...",
-        "Transferindo dados...",
-        "Root access granted...",
-        "Decrypting passwords...",
-        "Injecting scripts...",
-        "Downloading database...",
-        "Hack concluído..."
-      ];
-
-      let i = 0;
-
-      setInterval(() => {
-
-        if(i < mensagens.length){
-
-          hack.innerHTML += mensagens[i] + "\\n";
-          i++;
-
-        }else{
-
-          hack.innerHTML += "ERRO 0x93A...\\n";
-
-        }
-
-      },800);
-    }
-
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
-
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-
-    const letras =
-      "01ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソ";
-
-    const arrayLetras = letras.split("");
-
-    const tamanhoFonte = 14;
-    const colunas = canvas.width / tamanhoFonte;
-
-    const gotas = [];
-
-    for(let x = 0; x < colunas; x++){
-      gotas[x] = 1;
-    }
-
-    function desenhar(){
-
-      ctx.fillStyle = "rgba(0,0,0,0.05)";
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-
-      ctx.fillStyle = "#00ff00";
-      ctx.font = tamanhoFonte + "px monospace";
-
-      for(let i = 0; i < gotas.length; i++){
-
-        const texto =
-          arrayLetras[
-            Math.floor(Math.random() * arrayLetras.length)
-          ];
-
-        ctx.fillText(
-          texto,
-          i * tamanhoFonte,
-          gotas[i] * tamanhoFonte
-        );
-
-        if(
-          gotas[i] * tamanhoFonte > canvas.height &&
-          Math.random() > 0.975
-        ){
-          gotas[i] = 0;
-        }
-
-        gotas[i]++;
-      }
-    }
-
-    setInterval(desenhar,33);
-
-    window.addEventListener("resize", () => {
-
-      canvas.height = window.innerHeight;
-      canvas.width = window.innerWidth;
-
+  if(navigator.getBattery){
+    navigator.getBattery().then(function(battery){
+      bateria = Math.floor(battery.level * 100) + "%";
     });
+  }
 
-  </script>
+  const mensagens = [
+    "[+] Iniciando protocolo...",
+    "[+] Estabelecendo conexão segura...",
+    "[+] Conexão criptografada AES-256...",
+    "[+] Firewall ignorado...",
+    "[+] Coletando dados do dispositivo...",
+    "",
+    "==============================",
+    " DISPOSITIVO ENCONTRADO ",
+    "==============================",
+    "",
+    "[•] Plataforma: " + plataforma,
+    "[•] Idioma: " + idioma,
+    "[•] Resolução: " + largura + "x" + altura,
+    "[•] Bateria: " + bateria,
+    "",
+    "[+] Analisando navegador...",
+    navegador,
+    "",
+    "[+] Buscando IP...",
+    "[+] IP localizado com sucesso...",
+    "[+] Acesso root liberado...",
+    "[+] Transferindo arquivos...",
+    "[+] Verificando contas conectadas...",
+    "[+] Acesso concedido...",
+    "",
+    "⚠ SISTEMA COMPROMETIDO ⚠",
+    "",
+    "[+] Finalizando processo..."
+  ];
 
-</body>
-</html>
+  let i = 0;
 
+  const intervalo = setInterval(() => {
 
+    if(i < mensagens.length){
 
+      hack.innerHTML += mensagens[i] + "<br>";
+      hack.scrollTop = hack.scrollHeight;
 
+      i++;
+
+    }else{
+
+      hack.innerHTML +=
+      "[SYSTEM] conexão mantida...<br>";
+
+    }
+
+  },500);
+}
+</script>
+
+<style>
+#hack{
+  display:none;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  padding:20px;
+  overflow:auto;
+  background:black;
+  color:#00ff00;
+  font-size:14px;
+  font-family:monospace;
+  text-shadow:0 0 5px #00ff00;
+  line-height:1.5;
+}
+</style>
